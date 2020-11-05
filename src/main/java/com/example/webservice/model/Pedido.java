@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.example.webservice.model.enuns.PedidoStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -25,20 +26,29 @@ public class Pedido implements Serializable {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant registro;
 
+	// ENUM
+	private int statusDoPedido;
+
 	// Muito pedidos para 1 cliente
 	@ManyToOne
 	@JoinColumn(name = "cliente_id") // chave estrangeira
 	private User cliente;
 
-	public Pedido(Long id, Instant registro, User cliente) {
+	
+	/* ==============================CONSTRUTORES===================================*/
+
+	public Pedido(Long id, Instant registro, PedidoStatus pedidoStatus, User cliente) {
 		this.id = id;
 		this.registro = registro;
+		setStatusDoPedido(pedidoStatus);
 		this.cliente = cliente;
 	}
 
 	public Pedido() {
 	}
 
+	/*=============================GETTERS E SETTERS==========================*/
+	
 	public Long getId() {
 		return id;
 	}
@@ -53,6 +63,17 @@ public class Pedido implements Serializable {
 
 	public void setRegistro(Instant registro) {
 		this.registro = registro;
+	}
+
+	public PedidoStatus getStatusDoPedido() {
+		//conversão
+		return PedidoStatus.valueOf(statusDoPedido);
+	}
+
+	public void setStatusDoPedido(PedidoStatus statusDoPedido) {
+		if(statusDoPedido != null) {
+			this.statusDoPedido = statusDoPedido.getCodigo();
+		}
 	}
 
 	public User getCliente() {

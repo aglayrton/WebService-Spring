@@ -109,7 +109,7 @@ public class User implements Serializable{
 		return true;
 	}
 
-	//quando pe coleção é somente o get
+	//quando é coleção é somente o get
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
