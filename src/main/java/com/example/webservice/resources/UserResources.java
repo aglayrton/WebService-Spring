@@ -13,7 +13,6 @@ import com.example.webservice.model.User;
 import com.example.webservice.services.UserService;
 
 //controladores rest
-
 @RestController
 @RequestMapping(value = "/users")
 public class UserResources {

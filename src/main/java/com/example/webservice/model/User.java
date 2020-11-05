@@ -1,11 +1,16 @@
 package com.example.webservice.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -20,6 +25,12 @@ public class User implements Serializable{
 	private String email;
 	private String phone;
 	private String senha;
+	
+	
+	//associação - um usuário pode ter vários pedidos
+	@JsonIgnore //caso nao coloquemos, na hora de chamar os dados vai dar erro, pois o pedido chama  usuarios e usuarios c
+	@OneToMany(mappedBy = "cliente") //mapeado pelo atributo cliente la do outro lado
+	private List<Pedido> pedidos = new ArrayList<>(); //instanciamos pois vai ser uma coleção
 	
 	public User(Long id, String name, String email, String phone, String senha) {
 		super();
@@ -96,6 +107,11 @@ public class User implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	//quando pe coleção é somente o get
+	public List<Pedido> getPedidos() {
+		return pedidos;
 	}
 
 	
