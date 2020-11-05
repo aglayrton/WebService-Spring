@@ -14,7 +14,7 @@ import com.example.webservice.services.PedidoService;
 
 @RestController
 @RequestMapping("/pedidos")
-public class pedidoResource {
+public class PedidoResource {
 
 	@Autowired
 	private PedidoService service;

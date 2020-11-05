@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Profile;
 import com.example.webservice.model.Pedido;
 import com.example.webservice.model.User;
 import com.example.webservice.model.enuns.PedidoStatus;
+import com.example.webservice.repository.Categoria;
+import com.example.webservice.repository.CategoriaRepositorio;
 import com.example.webservice.repository.PedidoRepository;
 import com.example.webservice.repository.UserRepository;
 
@@ -24,11 +26,18 @@ public class TesteConfig implements CommandLineRunner {
 	@Autowired
 	private PedidoRepository pedidoRepository;
 	
-	
+	@Autowired
+	private CategoriaRepositorio categoriaRepository;
 	
 	//tudo vai ser executado quando a aplicação for executada
 	@Override
 	public void run(String... args) throws Exception {
+		
+		
+		Categoria c1 = new Categoria(null, "Eletrônicos");
+		Categoria c2 = new Categoria(null, "Eletrônicos");
+		
+		categoriaRepository.saveAll(Arrays.asList(c1, c2));
 		
 		User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
 		User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456"); 
