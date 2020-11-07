@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.example.webservice.model.Categoria;
 import com.example.webservice.model.ItemPedido;
+import com.example.webservice.model.Pagamentos;
 import com.example.webservice.model.Pedido;
 import com.example.webservice.model.Produto;
 import com.example.webservice.model.User;
@@ -77,6 +78,9 @@ public class TesteConfig implements CommandLineRunner {
 		
 		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2));
 		
+		Pagamentos pg1 = new Pagamentos(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		o1.setPagamento(pg1);
+		pedidoRepository.save(o1);
 	}
 	
 }

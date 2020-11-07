@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.example.webservice.model.enuns.PedidoStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -40,6 +42,9 @@ public class Pedido implements Serializable {
 	//pelo id acessao o pedido
 	@OneToMany(mappedBy = "id.pedido")
 	private Set<ItemPedido> items = new HashSet<>();
+	
+	@OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL) 
+	private Pagamentos pagamento;
 	
 	/* ==============================CONSTRUTORES===================================*/
 
@@ -80,6 +85,14 @@ public class Pedido implements Serializable {
 		if(statusDoPedido != null) {
 			this.statusDoPedido = statusDoPedido.getCodigo();
 		}
+	}
+	
+	public Pagamentos getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Pagamentos pagamento) {
+		this.pagamento = pagamento;
 	}
 
 	public User getCliente() {
