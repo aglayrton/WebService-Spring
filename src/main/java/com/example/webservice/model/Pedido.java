@@ -2,6 +2,8 @@ package com.example.webservice.model;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.example.webservice.model.enuns.PedidoStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -34,6 +37,9 @@ public class Pedido implements Serializable {
 	@JoinColumn(name = "cliente_id") // chave estrangeira
 	private User cliente;
 
+	//pelo id acessao o pedido
+	@OneToMany(mappedBy = "id.pedido")
+	private Set<ItemPedido> items = new HashSet<>();
 	
 	/* ==============================CONSTRUTORES===================================*/
 
@@ -82,6 +88,10 @@ public class Pedido implements Serializable {
 
 	public void setCliente(User cliente) {
 		this.cliente = cliente;
+	}
+	
+	public Set<ItemPedido> getItems() {
+		return items;
 	}
 
 	@Override

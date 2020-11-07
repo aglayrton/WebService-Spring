@@ -9,11 +9,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.example.webservice.model.Categoria;
+import com.example.webservice.model.ItemPedido;
 import com.example.webservice.model.Pedido;
 import com.example.webservice.model.Produto;
 import com.example.webservice.model.User;
 import com.example.webservice.model.enuns.PedidoStatus;
 import com.example.webservice.repository.CategoriaRepository;
+import com.example.webservice.repository.ItemPedidoRepository;
 import com.example.webservice.repository.PedidoRepository;
 import com.example.webservice.repository.ProdutoRepository;
 import com.example.webservice.repository.UserRepository;
@@ -33,6 +35,9 @@ public class TesteConfig implements CommandLineRunner {
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	//tudo vai ser executado quando a aplicação for executada
 	@Override
@@ -67,9 +72,10 @@ public class TesteConfig implements CommandLineRunner {
 		pedidoRepository.saveAll(Arrays.asList(o1, o2, o3));
 		
 		
+		ItemPedido ip1 = new ItemPedido(o1, p1, 2, p1.getPreco()); 
+		ItemPedido ip2 = new ItemPedido(o2, p2, 1, p1.getPreco()); 
 		
-	
-		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2));
 		
 	}
 	
